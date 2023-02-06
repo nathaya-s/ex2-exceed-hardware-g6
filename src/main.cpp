@@ -53,8 +53,10 @@ void loop()
     digitalWrite(green, HIGH);
     POST_traffic("green");
     while (1) {
-      if (debouncer.rose()) {
+      debouncer.update();
+      if (debouncer.fell()) {
         state = 2;
+        break;
       }
     }
   }
