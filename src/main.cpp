@@ -34,8 +34,8 @@ void setup()
 
   delay(200);
   // start LED with GREEN and POST to database
-  digitalWrite(green, HIGH);
-  POST_traffic("green");
+  // digitalWrite(green, HIGH);
+  // POST_traffic("green");
 }
 
 void loop()
@@ -43,35 +43,43 @@ void loop()
   // *** write your code here ***
   // Your can change everything that you want
   int i = map(analogRead(ldr), 2100, 3700, 0, 255);
-  if (state == 3 && flag && i < light){
+  if (state == 3 && flag && i < light)
+  {
     flag = false;
     state = 1;
   }
-  if (state == 1) {
+  if (state == 1)
+  {
     // while led GREEN
     digitalWrite(red, LOW);
     digitalWrite(green, HIGH);
     POST_traffic("green");
-    while (1) {
+    GET_traffic();
+    while (1)
+    {
       debouncer.update();
-      if (debouncer.fell()) {
+      if (debouncer.fell())
+      {
         state = 2;
         break;
       }
     }
   }
-  else if (state == 2) {
+  else if (state == 2)
+  {
     // while led YELLOW
     digitalWrite(green, LOW);
     digitalWrite(yellow, HIGH);
     POST_traffic("yellow");
     delay(8000);
-    state=3;
+    state = 3;
   }
-  else if (state == 3 && !flag) {
+  else if (state == 3 && !flag)
+  {
     digitalWrite(yellow, LOW);
     digitalWrite(red, HIGH);
-    POST_traffic("red");   
+    POST_traffic("red");
+    GET_traffic();
     delay(5000);
     flag = true;
   }
