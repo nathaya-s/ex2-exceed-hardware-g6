@@ -29,12 +29,10 @@ void GET_traffic()
       if (point.toInt() >= nearby_1 && point.toInt() <= nearby_2)
       {
         String led = traffic["traffic"].as<String>();
-        Serial.println("----------------------------------");
         Serial.print("point: ");
         Serial.print(point);
         Serial.print(" traffic: ");
         Serial.println(led);
-        Serial.println("----------------------------------");
       }
     }
   }
@@ -56,7 +54,7 @@ void POST_traffic(String led)
   http.addHeader("Content-Type", "application/json");
 
   DynamicJsonDocument doc(2048);
-  doc["code"] = point;
+  doc["code"] = "g74q2";
   doc["traffic"] = led;
   serializeJson(doc, json);
 
